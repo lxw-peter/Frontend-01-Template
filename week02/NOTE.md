@@ -44,10 +44,4 @@
 /^['"\\\n\r\t]|\n\r|u([0-9a-fA-F]{4}|\{(10|0?[0-9a-fA-F])[0-9a-fA-F]{0,4}\})|0[bB][01]+|0[oO][0-7]+|0[xX][0-9a-fA-F]+|$/
 ```
 
-### 3. 写一个 UTF-8 Encoding 的函数
-
-```js
-function UTF8_Encoding() {
-  // return new  Buffer();
-}
-```
+### 3. [写一个 UTF-8 Encoding 的函数](https://github.com/lxw-peter/Frontend-01-Template/blob/master/week02/encode.js)
