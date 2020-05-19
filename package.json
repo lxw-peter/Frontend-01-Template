@@ -1,0 +1,22 @@
+{
+  "name": "frontend-01-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lxw-peter/Frontend-01-Template.git"
+  },
+  "author": "lxw-peter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lxw-peter/Frontend-01-Template/issues"
+  },
+  "homepage": "https://github.com/lxw-peter/Frontend-01-Template#readme",
+  "dependencies": {
+    "css": "^2.2.4"
+  }
+}
