@@ -1,6 +1,6 @@
 # 第六周总结
 
-## [重学浏览器工作原理 -- 状态机](https://mubu.com/doc/zK38cGtTQy)
+## [重学浏览器工作原理 -- DOM && CSS 解析、布局、渲染](https://mubu.com/doc/zK38cGtTQy)
 
 ## 练习
 
