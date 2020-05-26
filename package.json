@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/lxw-peter/Frontend-01-Template#readme",
   "dependencies": {
-    "css": "^2.2.4"
+    "css": "^2.2.4",
+    "glob": "^7.1.6",
+    "images": "^3.0.2"
   }
 }
