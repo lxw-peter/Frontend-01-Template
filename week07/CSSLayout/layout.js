@@ -4,7 +4,7 @@ function getStyle(element) {
     }    
     for (let prop in element.computedStyle) {
         let p = element.computedStyle[prop].value;
-
+        element.style[prop] = p;
         if (element.style[prop].toString().match(/px$/)) {
             element.style[prop] = parseInt(element.style[prop]);
         }
@@ -136,7 +136,7 @@ function layout(element) {
 
     for (let i = 0, len = items.length; i < len; i++) {
         let item = items[i];
-        let itemStyle = getStyle[item];
+        let itemStyle = getStyle(item);
 
         if (itemStyle[mainSize] === null) {
             itemStyle[mainSize] = 0;
@@ -247,6 +247,7 @@ function layout(element) {
                         break;
                 }
                 items.forEach(item => {
+                    let itemStyle = getStyle(item);
                     itemStyle[mainStart] = currentMain
                     itemStyle[mainEnd] = itemStyle[mainStart] + mainSign * itemStyle[mainSize]
                     currentMain = itemStyle[mainEnd] + step;
@@ -254,8 +255,6 @@ function layout(element) {
             }
         })
     }
-
-    // let crossSpace;
 
     if (!style[crossSize]) {
         crossSpace = 0;
@@ -284,7 +283,7 @@ function layout(element) {
             step = 0;
             break;
         case 'flex-end':
-            crossBase = crossSign * crossSpace;
+            crossBase += crossSign * crossSpace;
             step = 0;
             break;
         case 'center':
@@ -297,7 +296,7 @@ function layout(element) {
             break;
         case 'space-around':
             step = crossSpace / (flexLines.length);
-            crossBase = crossSign * step / 2;
+            crossBase += crossSign * step / 2;
             break;
         case 'stretch':
             crossBase += 0;
@@ -343,7 +342,6 @@ function layout(element) {
         })
         crossBase += crossSign * (lineCrossSize + step);
     })
-    console.log(items);
 }
 
 module.exports = layout;

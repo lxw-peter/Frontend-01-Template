@@ -27,22 +27,21 @@ function addCSSRules(text) {
 }
 
 function match(element, selector) {
-    if (!selector || !element.attribute) {
+    if (!selector || !element.attributes) {
         return false;
     }
     if (selector.charAt(0) == '#') {
-        let attr = element.attribute.filter(attr => attr.name === 'id')[0]
+        let attr = element.attributes.filter(attr => attr.name === 'id')[0]
         if (attr && attr.value === selector.replace('#', '')) {
             return true;
-        } else if (selector.charAt(0) == '.') {
-            let attr = element.attribute.filter(attr => attr.name === 'class')[0]
-            if (attr && attr.value === selector.replace('.', '')) return true;
-        } else {
-            if (element.tarName === selector) {
-                return true;
-            }
         }
-        return false;
+    } else if (selector.charAt(0) == '.') {
+            let attr = element.attributes.filter(attr => attr.name === 'class')[0]
+            if (attr && attr.value === selector.replace('.', '')) return true;
+    } else {
+        if (element.tarName === selector) {
+            return true;
+        }
     }
 }
 
@@ -82,7 +81,7 @@ function computeCSS(element) {
     for (let rule of rules) {
         let selectorParts = rule.selectors[0].split(' ').reverse();
         if (!match(element, selectorParts[0])) continue;
-        let matched = false;
+        // let matched = false;
         let j = 1;
         for (let i = 0, len = elements.length; i < len; i++) {
             if (match(elements[i]), selectorParts[j]) {
@@ -107,7 +106,6 @@ function computeCSS(element) {
                     computedStyle[declaration.property].specificity = sp;
                 }
             }
-            console.log(element.computedStyle);
         }
     }
 }
@@ -118,12 +116,12 @@ function emit(token) {
         let element = {
             type: 'element',
             children: [],
-            attribute: []
+            attributes: []
         }
         element.tagName = token.tagName;
         for (let p in token) {
             if (p != 'type' || p != 'tagName') {
-                element.attribute.push({
+                element.attributes.push({
                     name: p,
                     value: token[p],
                 })
@@ -377,16 +375,25 @@ const html = `<html maaa=a >
     <style>
 .box {
     width: 500px;
+    height: 600px;
     display: flex;
     justify-content: space-around;
+    background-color: rgb(255, 255, 255);
 }
 .box1 {
     width:100px;
-    background-color: red;
+    background-color: rgb(255, 0, 0);
+    height: 150px;
 }
 .box2{
-    width:30px;
-    background-color: blue;
+    width:300px;
+    background-color: rgb(0, 255, 0);
+    height: 200px;
+}
+.box3{
+    width:100px;
+    background-color: rgb(0, 0, 255);
+    height: 150px;
 }
     </style>
 </head>
@@ -394,12 +401,12 @@ const html = `<html maaa=a >
     <div class="box" disabled='true' >
         <div class="box1"></div>
         <div class="box2"></div>
+        <div class="box3"></div>
     </div>
 </body>
 </html>`;
 
 let dom = parseHTML(html);
-
 let viewport = images(800, 600);
 
 render(viewport, dom);
