@@ -8,7 +8,7 @@ function getStyle(element) {
         if (element.style[prop].toString().match(/px$/)) {
             element.style[prop] = parseInt(element.style[prop]);
         }
-        if (element.style[prop].toString().match(/^[0-9\.]+$W/)) {
+        if (element.style[prop].toString().match(/^[0-9\.]+$/)) {
             element.style[prop] = parseInt(element.style[prop]);
         }
     }
@@ -30,6 +30,7 @@ function layout(element) {
 
     let style = elementStyle;
 
+    // 宽高默认值设置
     ['width', 'height'].forEach(size => {
         if (style[size] === 'auto' || style[size] === '') {
             style[size] = null;
@@ -228,28 +229,28 @@ function layout(element) {
                         step = 0;
                         break;
                     case 'flex-end':
-                        currentMain = mainBase;
+                        currentMain = mainBase * mainSign + mainBase;
                         step = 0;
                         break;
                     case 'center':
-                        currentMain = mainBase;
+                        currentMain = mainSpace / 2 * mainSign + mainBase;
                         step = 0;
                         break;
                     case 'space-between':
-                        step = mainSpace / items.length * mainSign;
-                        currentMain = step / 2 + mainBase;
+                        step = mainSpace / (items.length - 1) * mainSign;
+                        currentMain = mainBase;
                         break;
                     case 'space-around':
-                        currentMain = mainBase;
-                        step = 0;
+                        step = mainSpace / items.length * mainSign;
+                        currentMain = step / 2 + mainBase;
                         break;
                     default:
                         break;
                 }
                 items.forEach(item => {
                     let itemStyle = getStyle(item);
-                    itemStyle[mainStart] = currentMain
-                    itemStyle[mainEnd] = itemStyle[mainStart] + mainSign * itemStyle[mainSize]
+                    itemStyle[mainStart] =  currentMain;
+                    itemStyle[mainEnd] = itemStyle[mainStart] + mainSign * itemStyle[mainSize];
                     currentMain = itemStyle[mainEnd] + step;
                 })
             }
@@ -335,7 +336,7 @@ function layout(element) {
 
             if (align === 'stretch') {
                 itemStyle[crossStart] = crossBase;
-                itemStyle[crossEnd] = crossBase + crossSign * (itemStyle[mainSize] !== null || itemStyle[mainSize] !== (void 0) 
+                itemStyle[crossEnd] = crossBase + crossSign * (itemStyle[crossSize] !== null || itemStyle[crossSize] !== (void 0) 
                     ? itemStyle[crossSize] : lineCrossSize);
                 itemStyle[crossSize] = crossSign * (itemStyle[crossEnd] - itemStyle[crossStart]);
             }

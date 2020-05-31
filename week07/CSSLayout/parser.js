@@ -374,10 +374,10 @@ const html = `<html maaa=a >
 <head>
     <style>
 .box {
-    width: 500px;
+    width: 800px;
     height: 600px;
     display: flex;
-    justify-content: space-around;
+    justifyContent: space-between;
     background-color: rgb(255, 255, 255);
 }
 .box1 {
