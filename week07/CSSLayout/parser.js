@@ -43,6 +43,7 @@ function match(element, selector) {
             return true;
         }
     }
+    return false;
 }
 
 function specificity(selector) { 
@@ -79,6 +80,7 @@ function computeCSS(element) {
         element.computedStyle = {};
     }
     for (let rule of rules) {
+
         let selectorParts = rule.selectors[0].split(' ').reverse();
         if (!match(element, selectorParts[0])) continue;
         // let matched = false;
@@ -370,23 +372,24 @@ function parseHTML(html) {
     return stack[0];
 }
 
-const html = `<html maaa=a >
+const html = `<html language=zh >
 <head>
     <style>
 .box {
     width: 800px;
     height: 600px;
     display: flex;
-    justifyContent: space-between;
+    justify-content: space-around;
+    align-items: center;
     background-color: rgb(255, 255, 255);
 }
 .box1 {
-    width:100px;
+    width:300px;
     background-color: rgb(255, 0, 0);
-    height: 150px;
+    height: 350px;
 }
 .box2{
-    width:300px;
+    width:100px;
     background-color: rgb(0, 255, 0);
     height: 200px;
 }
@@ -398,7 +401,7 @@ const html = `<html maaa=a >
     </style>
 </head>
 <body>
-    <div class="box" disabled='true' >
+    <div class="box" disabled='true'>
         <div class="box1"></div>
         <div class="box2"></div>
         <div class="box3"></div>
@@ -411,6 +414,6 @@ let viewport = images(800, 600);
 
 render(viewport, dom);
 
-viewport.save('viewport.jpg');
+viewport.save(__dirname + '/viewport.jpg');
 
 // module.exports.parseHTML = parseHTML;
