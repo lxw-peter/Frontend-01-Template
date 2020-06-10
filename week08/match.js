@@ -6,15 +6,15 @@ function match(selector, element) {
   let currentElement = element;
   let currentSelector = selector[lastIndex];
   while (lastIndex >= 0 && currentElement) {
-    let parent = currentElement.parent;
-    let siblings = parent ? currentElement.children.filter(element => element.tagName) : [];
+    let parent = currentElement.parentElement;
+    let siblings = parent ? Array.from(currentElement.children).filter(element => element.tagName) : [];
     switch (currentSelector) {
       case '>':
         return match(parent, selector.slice(0, lastIndex));
       case '~':
-        return siblings.slice(0, currentElement.nthChild).some(element => match(element, selector.slice(0, lastIndex)));
+        return siblings.slice(0, currentElement.childElementCount).some(element => match(element, selector.slice(0, lastIndex)));
       case '+':
-        return match(siblings[currentElement.nthChild - 1]), selector.slice(0, lastIndex)
+        return match(siblings[currentElement.childElementCount - 1]), selector.slice(0, lastIndex)
 
       default:
         let type = currentSelector.charAt(0);
